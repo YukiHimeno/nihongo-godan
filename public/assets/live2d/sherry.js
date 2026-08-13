@@ -59,18 +59,20 @@ window.Sherry = (function () {
 
   // 响应式缩放：让「头部+上半身」填满容器。
   // 模型原始高约 3948，容器高 H。
-  // 目标：显示模型上 40% 左右（头+上身）。模型高经 scale 后 = 3948*s，
-  // 锚点在底部，y = 1.6H 时，可视区从 y-3948s 到 y，
-  // 想让头部（模型顶部）落在容器顶附近，取 s 使 3948s ≈ 4.8H（= 0.5 * 3948/414 * H）
+  // 目标：显示模型顶部约 40%（头+上身）。
+  // 锚点(0.5,1)在模型底部，要显示顶部 40%：
+  //   模型显示高 = H / 0.4 = 2.5H，scale = 2.5H / 3948
+  //   模型底部 y = 2.5H，使模型顶部对齐容器顶部(0)，露出头部。
+  const HEAD_RATIO = 0.4;
   function resize() {
     if (!model || !app || !app.renderer) return;
     const H = app.renderer.height;
     const W = app.renderer.width;
-    // 系数 0.5@H414 经验标定：s = H * (0.5 / 414)
-    const s = H * 0.00121;
+    const displayH = H / HEAD_RATIO;
+    const s = displayH / 3948;
     model.scale.set(s);
     model.x = W / 2;
-    model.y = H * 1.6;
+    model.y = displayH;
   }
 
   function ensure(fn) {
