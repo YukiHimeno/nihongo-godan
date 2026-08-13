@@ -41,12 +41,10 @@ window.Sherry = (function () {
             autoUpdate: true,
           }).then((m) => {
             model = m;
-            // 只显示头部+上半身：放大模型，锚点沉到底部，让下半身被裁掉
-            m.anchor.set(0.5, 1);
-            m.scale.set(1.7);
-            m.x = app.renderer.width / 2;
-            m.y = app.renderer.height + 40;
+            model.anchor.set(0.5, 1);
             app.stage.addChild(m);
+            window.addEventListener('resize', () => resize());
+            resize();
             pending.forEach((f) => { try { f(); } catch (e) {} });
             pending = [];
             resolve(true);
@@ -57,6 +55,22 @@ window.Sherry = (function () {
       };
       check();
     });
+  }
+
+  // 响应式缩放：让「头部+上半身」填满容器。
+  // 模型原始高约 3948，容器高 H。
+  // 目标：显示模型上 40% 左右（头+上身）。模型高经 scale 后 = 3948*s，
+  // 锚点在底部，y = 1.6H 时，可视区从 y-3948s 到 y，
+  // 想让头部（模型顶部）落在容器顶附近，取 s 使 3948s ≈ 4.8H（= 0.5 * 3948/414 * H）
+  function resize() {
+    if (!model || !app || !app.renderer) return;
+    const H = app.renderer.height;
+    const W = app.renderer.width;
+    // 系数 0.5@H414 经验标定：s = H * (0.5 / 414)
+    const s = H * 0.00121;
+    model.scale.set(s);
+    model.x = W / 2;
+    model.y = H * 1.6;
   }
 
   function ensure(fn) {
