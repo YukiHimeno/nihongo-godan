@@ -1,0 +1,19 @@
+# wrangler
+.wrangler/
+node_modules/
+dev-dist/
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# local playwright
+test-results/

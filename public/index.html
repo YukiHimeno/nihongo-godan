@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>五段动词入门</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="scene">
+  <img id="bg-img" src="assets/background/bg.webp" alt="" />
+  <div id="scene-veil"></div>
+</div>
+
+<div id="char-wrap">
+  <div id="l2d-canvas"></div>
+  <div id="l2d-fallback">橘雪莉加载中……</div>
+</div>
+<div id="exp-toast">+1 经验</div>
+
+<div id="dialogue">
+  <div class="dl-name"><span id="dl-name">橘雪莉</span></div>
+  <div id="dl-text"></div>
+</div>
+
+<div id="content">
+  <div id="header">
+    <h1>五段动词入门</h1>
+    <div class="sub">
+      <span class="chip">章节 <b id="hd-ch">第 0 关</b></span>
+      <span class="chip">答题 <b id="hd-score">0 / 0</b></span>
+      <span class="chip">正确率 <b id="hd-pct">0%</b></span>
+      <span class="chip">错题 <b id="hd-mis">0</b></span>
+    </div>
+  </div>
+  <div id="nb"></div>
+</div>
+
+<script src="vendor/pixi6.min.js"></script>
+<script src="vendor/live2dcubismcore.min.js"></script>
+<script src="vendor/cubism4.min.js"></script>
+<script src="vendor/l2d-browser.min.js"></script>
+<script src="assets/live2d/sherry.js"></script>
+<script src="js/conjugator.js"></script>
+<script src="js/lessons.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
